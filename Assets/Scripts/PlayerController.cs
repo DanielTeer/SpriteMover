@@ -12,14 +12,14 @@ public class PlayerController : Controller
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            pawn.Move(Vector3.right);
-        }
-
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            pawn.Move(Vector3.left);
+            pawn.Rotate(1);
+        }
+
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            pawn.Rotate(-1);
         }
 
         if (Input.GetKey(KeyCode.UpArrow))
