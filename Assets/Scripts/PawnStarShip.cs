@@ -1,30 +1,30 @@
 using UnityEngine;
 
-public class PawnStarShip : PawnSuperClass
+public class PawnStarShip : PawnSuperClass//Takes the additional code in my superclass that holds the Monobehavior
 {
-    private Transform tf;//reference the transform component
-    public float moveSpeed = 5f;//sets the movement speed in an adjustable speed
-    public float rotationSpeed = 180f;//sets the rotation in an adjustable speed
-    
-   
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private Transform tf;//Takes the transform component and names it tf
+
+    public float moveSpeed = 5f;//Adjustable speed
+
+    public float rotationSpeed = 180f;//Adjustable rotation speed
+
     void Start()
     {
-        tf = GetComponent<Transform>();//grabs the Transform from the object and uses tf as the storage box label
+        tf = GetComponent<Transform>();// Store the Transform component inside tf
     }
-    public void Move(Vector3 direction)
+
+    public void Move(Vector3 direction)//Local to the sprite movement
     {
         tf.position += tf.TransformDirection(direction) * moveSpeed * Time.deltaTime;
     }
 
-    public void Rotate(float direction)
+    public void MoveWorld(Vector3 direction)//Relative to the screen or origin space movement
     {
-        tf.Rotate(Vector3.forward * direction * rotationSpeed * Time.deltaTime);
+        tf.position += direction * moveSpeed * Time.deltaTime;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Rotate(float direction)//Rotation line
     {
-        
+        tf.Rotate(Vector3.forward * direction * rotationSpeed * Time.deltaTime);
     }
 }
