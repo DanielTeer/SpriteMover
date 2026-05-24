@@ -10,12 +10,12 @@ public class PawnStarShip : PawnSuperClass//Takes the additional code in my supe
 
     public float turboMultiplier = 2f; //TURBO SPEED!!!
 
-    public float minX = -5f;
+    public float minX = -5f;//Adjustable randomizer perameters
     public float maxX = 5f;
     public float minY = -5f;
     public float maxY = 5f;
 
-    public void RandomTeleport()
+    public void RandomTeleport()//moves the pawn using PlayerContoller key down
     {
         float randomX = Random.Range(minX, maxX);
         float randomY = Random.Range(minY, maxY);
@@ -30,7 +30,7 @@ public class PawnStarShip : PawnSuperClass//Takes the additional code in my supe
 
     public void Move(Vector3 direction)//Local to the sprite movement
     {
-        float speed = moveSpeed;//Names the variable to speed
+        float speed = moveSpeed;//Sets the variable to speed
 
             if (Input.GetKey(KeyCode.LeftShift))//TURBO Buttons
             {
