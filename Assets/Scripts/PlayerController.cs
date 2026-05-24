@@ -27,24 +27,28 @@ public class PlayerController : Controller
             pawn.Move(Vector3.down);
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow))//Teleport up
         {
             pawn.TeleportWorld(Vector3.up);
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow))//Teleport down
         {
             pawn.TeleportWorld(Vector3.down);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))//Teleport left
         {
             pawn.TeleportWorld(Vector3.left);
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow))//Teleport right
         {
             pawn.TeleportWorld(Vector3.right);
+        }
+        if (Input.GetKeyDown(KeyCode.T))//RandomTeleport key
+        {
+            pawn.RandomTeleport();
         }
     }
 }

@@ -10,6 +10,19 @@ public class PawnStarShip : PawnSuperClass//Takes the additional code in my supe
 
     public float turboMultiplier = 2f; //TURBO SPEED!!!
 
+    public float minX = -5f;
+    public float maxX = 5f;
+    public float minY = -5f;
+    public float maxY = 5f;
+
+    public void RandomTeleport()
+    {
+        float randomX = Random.Range(minX, maxX);
+        float randomY = Random.Range(minY, maxY);
+
+        tf.position = new Vector3(randomX, randomY, 0f);
+    }
+
     void Start()
     {
         tf = GetComponent<Transform>();// Store the Transform component inside tf
@@ -51,7 +64,7 @@ public class PawnStarShip : PawnSuperClass//Takes the additional code in my supe
     {
         tf.Rotate(Vector3.forward * direction * rotationSpeed * Time.deltaTime);
     }
-    public void TeleportWorld(Vector3 direction)
+    public void TeleportWorld(Vector3 direction)//Teleport using movement speed
     {
         tf.position += direction * moveSpeed;
     }
