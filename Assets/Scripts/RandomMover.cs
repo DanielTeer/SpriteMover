@@ -31,7 +31,7 @@ public class RandomMover : MonoBehaviour
 
     void Update()
     {
-        if (Input.anyKeyDown)//Checks for any key to be pressed every frame
+        if (Input.GetKeyDown(KeyCode.T))//Checks for T key to be pressed every frame
         {
             
             float randomX = Random.Range(minX, maxX);//Creates random X value between the editable perameters
