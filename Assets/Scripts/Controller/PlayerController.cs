@@ -4,8 +4,17 @@ public class PlayerController : Controller
 {
     
     public PawnStarShip pawn;//Names the star ship script reference as pawn
+
+    public Shooter shooter;
+
     void Update()
     {
+        {
+            if (Input.GetButtonDown("fire1"))
+            {
+                shooter.Shoot();
+            }
+        }
         //The transforms that move the ship in the facing direction
         if (Input.GetKey(KeyCode.A))// Rotate Left
         {
