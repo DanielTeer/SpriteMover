@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Health : MonoBehaviour
 
     private bool isDead = false;
 
+    public Image healthImage;//Image name for reference
+
     void Start()
     {
         // Start at full health
@@ -20,6 +23,9 @@ public class Health : MonoBehaviour
 
         // Try to find a Death component on this GameObject
         deathComponent = GetComponent<Death>();
+
+        if (healthImage != null)
+            UpdateUI();
     }
 
     // Function that allows other objects to deal damage
@@ -27,10 +33,10 @@ public class Health : MonoBehaviour
     {
         if (isDead) return;
 
-        currentHealth -= damage;
+        currentHealth -= damage;//damage amount
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        Debug.Log(gameObject.name + " took damage: " + damage);
-        Debug.Log("Remaining Health: " + currentHealth);
+        UpdateUI();
 
         if (currentHealth <= 0)
         {
@@ -38,9 +44,38 @@ public class Health : MonoBehaviour
             Die();
         }
     }
+    public bool Heal(float amount)//Checks to see if We need health before using healthpack
+    {
+        if (isDead) return false;
+
+        if (currentHealth >= maxHealth)
+        {
+            return false;// chacks if i am full health before using health pack
+        }
+
+        currentHealth += amount;//Heal amount
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);//Math to update health on heal
+
+        UpdateUI();//updates healthbar image
+        return true;//if true then complete the function, this bool true will be used in HealthPack.cs
+    }
+   
+    void UpdateUI()
+    {
+        if (healthImage != null)//Checks to see if i have the healthbar image on Gameobject
+        {
+            healthImage.fillAmount = currentHealth / maxHealth;//Updates the health bar fill amount
+        }
+    }
+    public void ResetHealth()
+    {
+        isDead = false;
+        currentHealth = maxHealth;
+        UpdateUI();
+    }
 
     // Function called when health reaches zero
-    public void Die()
+    public void Die()//Die function
     {
         if (isDead) return;  
 

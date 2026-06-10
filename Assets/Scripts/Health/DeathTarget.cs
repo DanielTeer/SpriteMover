@@ -4,13 +4,14 @@ public class DeathTarget : DeathDestroy
 {
     void Start()
     {
-        GameManager.Instance.RegisterTarget();
+        GameManager.Instance.RegisterObstacle();
     }
 
     public override void Die()
     {
-        GameManager.Instance.RemoveTarget();
+        GameManager.Instance.RemoveObstacle();
+        GameManager.Instance.AddScore(100);
 
-        base.Die(); // calls Destroy(gameObject)
+        base.Die();
     }
 }

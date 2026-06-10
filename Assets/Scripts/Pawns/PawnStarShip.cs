@@ -15,18 +15,23 @@ public class PawnStarShip : PawnSuperClass//Takes the additional code in my supe
     public float minY = -5f;
     public float maxY = 5f;
 
+    public Boundary boundary;
+
     public void RandomTeleport()//moves the pawn using PlayerContoller key down
     {
         float randomX = Random.Range(minX, maxX);
         float randomY = Random.Range(minY, maxY);
 
         tf.position = new Vector3(randomX, randomY, 0f);
+
+        ClampPosition(); // clamp
     }
 
     void Start()
     {
         tf = GetComponent<Transform>();// Store the Transform component inside tf
     }
+
 
     public void Move(Vector3 direction)//Local to the sprite movement
     {
@@ -42,6 +47,8 @@ public class PawnStarShip : PawnSuperClass//Takes the additional code in my supe
             }
 
         tf.position += tf.TransformDirection(direction) * speed * Time.deltaTime;
+
+        ClampPosition(); // clamp
     }
 
     public void MoveWorld(Vector3 direction)//Relative to the screen or origin space movement
@@ -58,6 +65,8 @@ public class PawnStarShip : PawnSuperClass//Takes the additional code in my supe
         }
 
         tf.position += direction * speed * Time.deltaTime;
+
+        ClampPosition(); // clamp
     }
 
     public void Rotate(float direction)//Rotation line
@@ -67,5 +76,19 @@ public class PawnStarShip : PawnSuperClass//Takes the additional code in my supe
     public void TeleportWorld(Vector3 direction)//Teleport using movement speed
     {
         tf.position += direction * moveSpeed;
+
+        ClampPosition(); // clamp
+    }
+    
+    void ClampPosition()//holds in boundary
+    {
+        if (boundary == null) return;
+
+        Vector3 pos = tf.position;
+
+        pos.x = Mathf.Clamp(pos.x, boundary.minX, boundary.maxX);
+        pos.y = Mathf.Clamp(pos.y, boundary.minY, boundary.maxY);
+
+        tf.position = pos;
     }
 }
