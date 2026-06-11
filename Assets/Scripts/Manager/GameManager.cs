@@ -29,6 +29,22 @@ public class GameManager : MonoBehaviour
 
     public CameraFollow cameraFollow;
 
+    [Header("Sound Effects")]
+    public AudioClip shootSound;
+    public AudioClip damageSound;
+    public AudioClip explosionSound;
+    public AudioClip asteroidHum;
+
+    [Header("Volume Settings")]
+    [Range(0f, 1f)]
+    public float masterVolume = 1f;
+
+    [Range(0f, 1f)]
+    public float musicVolume = 1f;
+
+    [Range(0f, 1f)]
+    public float sfxVolume = 1f;
+
 
     void Awake()
     {

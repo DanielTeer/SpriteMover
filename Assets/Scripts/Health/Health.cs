@@ -16,6 +16,8 @@ public class Health : MonoBehaviour
 
     public Image healthImage;//Image name for reference
 
+    private AudioSource audioSource;//audio
+
     void Start()
     {
         // Start at full health
@@ -26,6 +28,8 @@ public class Health : MonoBehaviour
 
         if (healthImage != null)
             UpdateUI();
+
+        audioSource = GetComponent<AudioSource>();//audio
     }
 
     // Function that allows other objects to deal damage
@@ -33,10 +37,15 @@ public class Health : MonoBehaviour
     {
         if (isDead) return;
 
-        currentHealth -= damage;//damage amount
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(GameManager.Instance.damageSound);//audio one shot on hit
+        }
+
+        currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        UpdateUI();
+        UpdateUI();//update ui
 
         if (currentHealth <= 0)
         {
