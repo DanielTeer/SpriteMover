@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 100
+  healthImage: {fileID: 0}
 --- !u!114 &6075523067124368444
 MonoBehaviour:
   m_ObjectHideFlags: 0

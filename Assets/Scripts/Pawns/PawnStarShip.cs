@@ -10,21 +10,18 @@ public class PawnStarShip : PawnSuperClass//Takes the additional code in my supe
 
     public float turboMultiplier = 2f; //TURBO SPEED!!!
 
-    public float minX = -5f;//Adjustable randomizer perameters
+    public float minX = -5f;//Adjustable randomizer perameters-14,14,-9,9 for current state
     public float maxX = 5f;
     public float minY = -5f;
     public float maxY = 5f;
 
-    public Boundary boundary;
-
     public void RandomTeleport()//moves the pawn using PlayerContoller key down
     {
-        float randomX = Random.Range(minX, maxX);
-        float randomY = Random.Range(minY, maxY);
+        float randomX = Random.Range(minX, maxX);// gives the teleport restrictions
+        float randomY = Random.Range(minY, maxY);// gives the restrictions
 
-        tf.position = new Vector3(randomX, randomY, 0f);
+        tf.position = new Vector3(randomX, randomY, 0f);// new position in tf on T press
 
-        ClampPosition(); // clamp
     }
 
     void Start()
@@ -46,9 +43,8 @@ public class PawnStarShip : PawnSuperClass//Takes the additional code in my supe
                 speed *= turboMultiplier;
             }
 
-        tf.position += tf.TransformDirection(direction) * speed * Time.deltaTime;
+        tf.position += tf.TransformDirection(direction) * speed * Time.deltaTime;// keeps framereate consistand not on internet speed
 
-        ClampPosition(); // clamp
     }
 
     public void MoveWorld(Vector3 direction)//Relative to the screen or origin space movement
@@ -64,31 +60,22 @@ public class PawnStarShip : PawnSuperClass//Takes the additional code in my supe
             speed *= turboMultiplier;
         }
 
-        tf.position += direction * speed * Time.deltaTime;
+        tf.position += direction * speed * Time.deltaTime;// keeps framerate consistant
 
-        ClampPosition(); // clamp
     }
 
     public void Rotate(float direction)//Rotation line
     {
-        tf.Rotate(Vector3.forward * direction * rotationSpeed * Time.deltaTime);
+        tf.Rotate(Vector3.forward * direction * rotationSpeed * Time.deltaTime);// allows us to rotate on z
     }
     public void TeleportWorld(Vector3 direction)//Teleport using movement speed
     {
         tf.position += direction * moveSpeed;
 
-        ClampPosition(); // clamp
     }
-    
-    void ClampPosition()//holds in boundary
+    void LateUpdate()
     {
-        if (boundary == null) return;
-
-        Vector3 pos = tf.position;
-
-        pos.x = Mathf.Clamp(pos.x, boundary.minX, boundary.maxX);
-        pos.y = Mathf.Clamp(pos.y, boundary.minY, boundary.maxY);
-
-        tf.position = pos;
+        tf.position =
+            GameManager.Instance.WrapPosition(tf.position);// enables wrap on tf position
     }
 }

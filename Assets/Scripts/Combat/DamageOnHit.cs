@@ -3,31 +3,33 @@ using UnityEngine;
 public class DamageOnHit : MonoBehaviour
 {
     // Amount of damage dealt on collision
-    public float damageAmount = 10f;
+    public float damageAmount = 10f;// but were using instant kill now
 
     // Inspector checkbox for instant death
-    public bool instantKill = false;
+    public bool instantKill = false;// default is damage but we are setting true for class
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)// If the collider detects another collider function
     {
-        // Try to find a Health component on the object we hit
-        Health health = collision.gameObject.GetComponent<Health>();
-
-        // If no Health component exists, stop safely
-        if (health == null)
+        // ONLY affect the player
+        if (!collision.gameObject.CompareTag("Player"))//Tags player for the collision prevents enemies from killing each other
         {
-            return;
+            return;//return nothing
         }
 
-        // If Instant Kill is checked
-        if (instantKill)
+        Health health = collision.gameObject.GetComponent<Health>();//Adds the health of 100 to start of code
+
+        if (health == null)// if no health
         {
-            health.Die();
+            return;// nothing returns
         }
-        else
+
+        if (instantKill)//if we check insta kill
         {
-            // Otherwise deal normal damage
-            health.TakeDamage(damageAmount);
+            health.Die();// collider kills the player game object
+        }
+        else//or if not checked
+        {
+            health.TakeDamage(damageAmount);// we can still damage
         }
     }
 } 

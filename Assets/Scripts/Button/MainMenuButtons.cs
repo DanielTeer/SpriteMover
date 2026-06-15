@@ -34,4 +34,11 @@ public class MainMenuButtons : MonoBehaviour
             GameManager.Instance.ActivateTitleScreen();
         }
     }
+    public void ChangeToMainMenuScreen()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.ActivateMainMenuScreen();
+        }
+    }
 }
